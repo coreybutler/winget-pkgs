@@ -1,0 +1,24 @@
+# Created with YamlCreate.ps1 Dumplings Mod
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.installer.1.12.0.schema.json
+
+PackageIdentifier: KDE.Marknote
+PackageVersion: 1.6.0
+InstallerType: nullsoft
+UpgradeBehavior: install
+ProductCode: marknote
+ReleaseDate: 2026-09-08
+Installers:
+- Architecture: x64
+  Scope: user
+  InstallerUrl: https://cdn.kde.org/ci-builds/office/marknote/master/windows/marknote-master-1882-windows-cl-msvc2022-x86_64.exe
+  InstallerSha256: B1202550AF2AEC33AEEA0AF91921F0D9A14A621AD8832D3307FBA92C8527B01E
+  InstallerSwitches:
+    Custom: /CurrentUser
+- Architecture: x64
+  Scope: machine
+  InstallerUrl: https://cdn.kde.org/ci-builds/office/marknote/master/windows/marknote-master-1882-windows-cl-msvc2022-x86_64.exe
+  InstallerSha256: B1202550AF2AEC33AEEA0AF91921F0D9A14A621AD8832D3307FBA92C8527B01E
+  InstallerSwitches:
+    Custom: /AllUsers
+ManifestType: installer
+ManifestVersion: 1.12.0

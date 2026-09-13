@@ -1,5 +1,5 @@
-# Created with YamlCreate.ps1 v2.5.0 $debug=NVS2.CRLF.7-5-2.Win32NT
-# yaml-language-server: $schema=https://aka.ms/winget-manifest.defaultLocale.1.10.0.schema.json
+# Automatically updated by the winget bot at 2026/May/19
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.defaultLocale.1.12.0.schema.json
 
 PackageIdentifier: CREALOGIX.PayEye
 PackageVersion: 1.4.0
@@ -13,16 +13,8 @@ PackageName: PayEye
 PackageUrl: https://support.crealogix.com/en/products/payeye/
 License: Proprietary
 LicenseUrl: https://shop.crealogix.com/en/disclaimer
-Copyright:  © 2025 CREALOGIX. All rights reserved.
+Copyright: © 2025 CREALOGIX. All rights reserved.
 CopyrightUrl: https://shop.crealogix.com/en/disclaimer
 ShortDescription: Swiss QR Code Reader – For your payments today and tomorrow
-# Description:
-# Moniker:
-# Tags:
-# ReleaseNotes:
-# ReleaseNotesUrl:
-# PurchaseUrl:
-# InstallationNotes:
-# Documentations:
 ManifestType: defaultLocale
-ManifestVersion: 1.10.0
+ManifestVersion: 1.12.0

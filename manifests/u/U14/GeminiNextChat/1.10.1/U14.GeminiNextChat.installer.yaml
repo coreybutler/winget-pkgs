@@ -1,5 +1,5 @@
-# Automatically updated by the winget bot at 2025/Jun/30
-# yaml-language-server: $schema=https://aka.ms/winget-manifest.installer.1.10.0.schema.json
+# Automatically updated by the winget bot at 2026/Jul/04
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.installer.1.12.0.schema.json
 
 PackageIdentifier: U14.GeminiNextChat
 PackageVersion: 1.10.1
@@ -10,15 +10,15 @@ Installers:
   InstallerType: nullsoft
   Scope: user
   InstallerUrl: https://github.com/u14app/gemini-next-chat/releases/download/v1.10.1/gemini-next-chat_1.10.1_x64-setup.exe
-  InstallerSha256: 9B47D4DCE60C2F352713D4F43A3E2AC0ADFAC093F8EC85A12BA0A8D0CE0966C1
+  InstallerSha256: 1F8CCFE93E79B0201748CC66DE3FB6D5CB1A5DA647AC814A3226356C74E06A73
   ProductCode: gemini-next-chat
 - Architecture: x64
   InstallerType: wix
   Scope: machine
   InstallerUrl: https://github.com/u14app/gemini-next-chat/releases/download/v1.10.1/gemini-next-chat_1.10.1_x64_en-US.msi
-  InstallerSha256: B91775846222E44E4B629B0770BF000EC09BF11BCAD7C6BF1F7266C5662CD031
+  InstallerSha256: E543E356D2B01CF8084A664AD8E7CEFC28D9E4331175DC386611B20345C7B0B1
   InstallerSwitches:
     InstallLocation: INSTALLDIR="<INSTALLPATH>"
-  ProductCode: '{36A1913B-D8D1-4953-9D5B-4CAE917F2C90}'
+  ProductCode: '{BB4CEB19-765F-412B-9FEA-3529B9ADADE4}'
 ManifestType: installer
-ManifestVersion: 1.10.0
+ManifestVersion: 1.12.0

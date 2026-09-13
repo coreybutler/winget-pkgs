@@ -1,14 +1,18 @@
 name: PSScriptAnalyzer
 
 on:
-  pull_request_target:
+  pull_request:
     branches:
       - master
     paths:
       - "**/*.ps1"
+      - "**/*.psm1"
+      - "**/*.psd1"
   push:
     paths:
       - "**/*.ps1"
+      - "**/*.psm1"
+      - "**/*.psd1"
 
 permissions:
   contents: read # Needed to check out the code
@@ -19,14 +23,17 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          persist-credentials: false
       - name: Install PSScriptAnalyzer
         run: |
           Install-Module -Name PSScriptAnalyzer -Force -SkipPublisherCheck -Scope CurrentUser
       - name: Run PSScriptAnalyzer
         run: |
           # Run PSScriptAnalyzer on all PowerShell scripts
-          $results = Get-ChildItem -Recurse -Filter *.ps1 | Invoke-ScriptAnalyzer
+          $results = @(Get-ChildItem -Recurse -Filter *.ps1 | Invoke-ScriptAnalyzer)
+          $results += @(Get-ChildItem -Recurse -Filter *.psm1 | Invoke-ScriptAnalyzer)
           if ($results) {
             Write-Output $results | Format-List -GroupBy ScriptName
           }

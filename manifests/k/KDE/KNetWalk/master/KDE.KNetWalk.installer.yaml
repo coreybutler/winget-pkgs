@@ -1,23 +1,24 @@
 # Created with YamlCreate.ps1 Dumplings Mod
-# yaml-language-server: $schema=https://aka.ms/winget-manifest.installer.1.10.0.schema.json
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.installer.1.12.0.schema.json
 
 PackageIdentifier: KDE.KNetWalk
 PackageVersion: master
 InstallerType: nullsoft
 UpgradeBehavior: install
 ProductCode: knetwalk
+ReleaseDate: 2026-09-04
 Installers:
 - Architecture: x64
   Scope: user
-  InstallerUrl: https://cdn.kde.org/ci-builds/games/knetwalk/master/windows/knetwalk-master-679-windows-cl-msvc2022-x86_64.exe
-  InstallerSha256: 9B035D566159A49E1B8FBFFE2816844BB1D8597DE8A3DDC20CA2BA3D83A6FBD2
+  InstallerUrl: https://cdn.kde.org/ci-builds/games/knetwalk/master/windows/knetwalk-master-878-windows-cl-msvc2022-x86_64.exe
+  InstallerSha256: 9FA2A7EE9221C92DB3874E342FC3EA338D16D1627C476726BEB888E35C998373
   InstallerSwitches:
     Custom: /CurrentUser
 - Architecture: x64
   Scope: machine
-  InstallerUrl: https://cdn.kde.org/ci-builds/games/knetwalk/master/windows/knetwalk-master-679-windows-cl-msvc2022-x86_64.exe
-  InstallerSha256: 9B035D566159A49E1B8FBFFE2816844BB1D8597DE8A3DDC20CA2BA3D83A6FBD2
+  InstallerUrl: https://cdn.kde.org/ci-builds/games/knetwalk/master/windows/knetwalk-master-878-windows-cl-msvc2022-x86_64.exe
+  InstallerSha256: 9FA2A7EE9221C92DB3874E342FC3EA338D16D1627C476726BEB888E35C998373
   InstallerSwitches:
     Custom: /AllUsers
 ManifestType: installer
-ManifestVersion: 1.10.0
+ManifestVersion: 1.12.0

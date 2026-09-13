@@ -1,23 +1,24 @@
 # Created with YamlCreate.ps1 Dumplings Mod
-# yaml-language-server: $schema=https://aka.ms/winget-manifest.installer.1.10.0.schema.json
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.installer.1.12.0.schema.json
 
 PackageIdentifier: KDE.Granatier
 PackageVersion: master
 InstallerType: nullsoft
 UpgradeBehavior: install
 ProductCode: granatier
+ReleaseDate: 2026-09-04
 Installers:
 - Architecture: x64
   Scope: user
-  InstallerUrl: https://cdn.kde.org/ci-builds/games/granatier/master/windows/granatier-master-730-windows-cl-msvc2022-x86_64.exe
-  InstallerSha256: CC2BCAC83CFC6E5A184F7949D94B3E25C31DCAAD212102E7D12A5EF17B3C122D
+  InstallerUrl: https://cdn.kde.org/ci-builds/games/granatier/master/windows/granatier-master-954-windows-cl-msvc2022-x86_64.exe
+  InstallerSha256: 5694752892430D4D0F0A2AC849039C94014FA9B92E7629CDC081D7C869FDC561
   InstallerSwitches:
     Custom: /CurrentUser
 - Architecture: x64
   Scope: machine
-  InstallerUrl: https://cdn.kde.org/ci-builds/games/granatier/master/windows/granatier-master-730-windows-cl-msvc2022-x86_64.exe
-  InstallerSha256: CC2BCAC83CFC6E5A184F7949D94B3E25C31DCAAD212102E7D12A5EF17B3C122D
+  InstallerUrl: https://cdn.kde.org/ci-builds/games/granatier/master/windows/granatier-master-954-windows-cl-msvc2022-x86_64.exe
+  InstallerSha256: 5694752892430D4D0F0A2AC849039C94014FA9B92E7629CDC081D7C869FDC561
   InstallerSwitches:
     Custom: /AllUsers
 ManifestType: installer
-ManifestVersion: 1.10.0
+ManifestVersion: 1.12.0

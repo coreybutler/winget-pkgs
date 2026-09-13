@@ -1,9 +1,10 @@
 # Created with YamlCreate.ps1 Dumplings Mod
-# yaml-language-server: $schema=https://aka.ms/winget-manifest.installer.1.10.0.schema.json
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.installer.1.12.0.schema.json
 
 PackageIdentifier: Tencent.CodeBuddy
 PackageVersion: 1.100.0
 InstallerType: inno
+Scope: user
 InstallerSwitches:
   Custom: /mergetasks=!runcode
 UpgradeBehavior: install
@@ -150,17 +151,11 @@ FileExtensions:
 - yaml
 - yml
 - zsh
-ReleaseDate: 2025-07-28
+ProductCode: '{CC6B787D-37A0-49E8-AE24-8559A032BE0C}_is1'
+ReleaseDate: 2026-06-09
 Installers:
 - Architecture: x64
-  Scope: user
-  InstallerUrl: https://codebuddy-1328495429.cos.accelerate.myqcloud.com/aiide/win32-x64-user/CodeBuddy-win32-x64-user-0.1.13.2996855-6e3f414e.exe
-  InstallerSha256: B936F2150F07720AA60B4C9C781672F11324E15A6CAF806FC5FBC0B53CC4743B
-  ProductCode: '{CC6B787D-37A0-49E8-AE24-8559A032BE0C}_is1'
-- Architecture: x64
-  Scope: machine
-  InstallerUrl: https://codebuddy-1328495429.cos.accelerate.myqcloud.com/aiide/win32-x64-system/CodeBuddy-win32-x64-system-0.1.13.2996855-6e3f414e.exe
-  InstallerSha256: 4D80F48E9FA7D2420635105415FBE696EE27D8BD7A3709BABDBF3E915F564B10
-  ProductCode: '{D77B7E06-80BA-4137-BCF4-654B95CCEBC5}_is1'
+  InstallerUrl: https://codebuddy-1328495429.cos.accelerate.myqcloud.com/aiide/win32-x64-user/CodeBuddy-win32-x64-user-4.9.13.30241433-0acccacc.exe
+  InstallerSha256: 2271C5124518C1390AF2D8FFA4DEF7542EB232C85E532521C64EC89C5AB19B93
 ManifestType: installer
-ManifestVersion: 1.10.0
+ManifestVersion: 1.12.0

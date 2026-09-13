@@ -1,5 +1,5 @@
 # Created with YamlCreate.ps1 Dumplings Mod
-# yaml-language-server: $schema=https://aka.ms/winget-manifest.installer.1.10.0.schema.json
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.installer.1.12.0.schema.json
 
 PackageIdentifier: Seafuture.NetpasTramperBusiness
 PackageVersion: "1.1"
@@ -11,12 +11,13 @@ Dependencies:
   PackageDependencies:
   - PackageIdentifier: Microsoft.EdgeWebView2Runtime
 ProductCode: '{AD26DBF3-29CE-44E6-B5B7-B0065171A80C}_is1'
+ReleaseDate: 2026-09-01
 Installers:
 - Architecture: x86
   InstallerUrl: https://file.netpas.net/ftp/NetpasTramperBusiness.exe
-  InstallerSha256: 56D62D5387C927000CABC83113ACB5E19B9D50DAE718C7FAA5B4F102268EAE03
+  InstallerSha256: A7F42D0C4B0399A1718469618BFCAAB2D1F136D67319ADE4B1F57E41341FD908
 - Architecture: x64
   InstallerUrl: https://file.netpas.net/ftp/NetpasTramperBusiness.exe
-  InstallerSha256: 56D62D5387C927000CABC83113ACB5E19B9D50DAE718C7FAA5B4F102268EAE03
+  InstallerSha256: A7F42D0C4B0399A1718469618BFCAAB2D1F136D67319ADE4B1F57E41341FD908
 ManifestType: installer
-ManifestVersion: 1.10.0
+ManifestVersion: 1.12.0

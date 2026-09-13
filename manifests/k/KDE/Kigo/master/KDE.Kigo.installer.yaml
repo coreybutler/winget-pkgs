@@ -1,23 +1,24 @@
 # Created with YamlCreate.ps1 Dumplings Mod
-# yaml-language-server: $schema=https://aka.ms/winget-manifest.installer.1.10.0.schema.json
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.installer.1.12.0.schema.json
 
 PackageIdentifier: KDE.Kigo
 PackageVersion: master
 InstallerType: nullsoft
 UpgradeBehavior: install
 ProductCode: kigo
+ReleaseDate: 2026-09-04
 Installers:
 - Architecture: x64
   Scope: user
-  InstallerUrl: https://cdn.kde.org/ci-builds/games/kigo/master/windows/kigo-master-759-windows-cl-msvc2022-x86_64.exe
-  InstallerSha256: 264F47481DCACFA81E40D9839E8E13B69D639D5ED4F2FE157FAA9A0A83C3C85A
+  InstallerUrl: https://cdn.kde.org/ci-builds/games/kigo/master/windows/kigo-master-953-windows-cl-msvc2022-x86_64.exe
+  InstallerSha256: EE16DBD2BA9D986AA683D0454A00FD975719A2E65D1130AABAA7163448C7612B
   InstallerSwitches:
     Custom: /CurrentUser
 - Architecture: x64
   Scope: machine
-  InstallerUrl: https://cdn.kde.org/ci-builds/games/kigo/master/windows/kigo-master-759-windows-cl-msvc2022-x86_64.exe
-  InstallerSha256: 264F47481DCACFA81E40D9839E8E13B69D639D5ED4F2FE157FAA9A0A83C3C85A
+  InstallerUrl: https://cdn.kde.org/ci-builds/games/kigo/master/windows/kigo-master-953-windows-cl-msvc2022-x86_64.exe
+  InstallerSha256: EE16DBD2BA9D986AA683D0454A00FD975719A2E65D1130AABAA7163448C7612B
   InstallerSwitches:
     Custom: /AllUsers
 ManifestType: installer
-ManifestVersion: 1.10.0
+ManifestVersion: 1.12.0

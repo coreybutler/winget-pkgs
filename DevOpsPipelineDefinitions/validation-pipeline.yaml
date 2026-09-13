@@ -45,36 +45,19 @@ extends:
         timeoutInMinutes: 0
 
         steps:
+        # Allow scripts to access the system token.
+        # Fetch all history.
+        # Don't fetch tags.
         - checkout: self
           persistCredentials: true
+          clean: true
+          fetchDepth: 0
+          fetchTags: false
 
-        # Downloads all the setup files and its dependencies.
-        - task: AzureCLI@2
-          displayName: 'Azure Setup'
-          inputs:
-            azureSubscription: '$(WinGetSvc.DataAccess)'
-            scriptType: batch
-            scriptLocation: inlineScript
-            inlineScript: |
-              az storage blob download-batch --auth-mode login -d . --pattern * -s servicewrapper --output none --account-name $(ValidationStorageAccountName)
-            addSpnToEnvironment: true
-
-        - task: CmdLine@2
-          name: 'wingetsetup'
-          displayName: 'WinGet Setup'
-          env:
-            HOST_KEY: $(AzureFunctionHostKey)
-            SMART_SCREEN_ENDPOINT: $(AzFuncSmartScreenEndpoint)
-            DOMAIN_URLS_VALIDATION_ENDPOINT: $(AzFuncDomainUrlValEndpoint)
-            MANIFEST_POLICY_ENDPOINT: $(AzFuncManifestPolicyEndpoint)
-            SCAN_ENDPOINT: $(AzFuncScanEndpoint)
-            INSTALLATION_ENDPOINT: $(AzFuncInstallationVerificationEndpoint)
-            LABEL_ENDPOINT: $(AzFuncSetLabelOnPullRequestEndpoint)
-            LABEL_KEY: $(AzureFunctionLabelKey)
-            CATALOG_CONTENT_VERIFICATION_ENDPOINT: $(AzFuncCatalogContentVerificationEndpoint)
-          inputs:
-            script: 'winget_validation_setup.cmd'
-            workingDirectory: scripts
+        # Downloads dependencies and publishes the pipeline secrets.
+        - template: /DevOpsPipelineDefinitions/templates/winget-setup.yaml@self
+          parameters:
+            type: Validation
 
         # Validates integrity of pull request.
         - task: AzureCLI@2
@@ -89,7 +72,7 @@ extends:
             failOnStandardError: true
           env:
             ValidationStorageAccountName: $(ValidationStorageAccountName)
-            StorageManagedIdentityClientId: $(StorageManagedIdentityClientId)
+            CacheStorageAccountName: $(CacheStorageAccountName)
             WinGet:AppConfig:PrimaryEndpoint: $(AppConfigPrimaryEndpoint)
             WinGet:AppConfig:SecondaryEndpoint: $(AppConfigSecondaryEndpoint)
             DIApplicationInsightKey: $(DIApplicationInsightKey)
@@ -109,7 +92,6 @@ extends:
           env:
             ValidationStorageAccountName: $(ValidationStorageAccountName)
             CacheStorageAccountName: $(CacheStorageAccountName)
-            StorageManagedIdentityClientId: $(StorageManagedIdentityClientId)
             WinGet:AppConfig:PrimaryEndpoint: $(AppConfigPrimaryEndpoint)
             WinGet:AppConfig:SecondaryEndpoint: $(AppConfigSecondaryEndpoint)
             DIApplicationInsightKey: $(DIApplicationInsightKey)
@@ -196,6 +178,41 @@ extends:
             waitForCompletion: "true"
 
       # Agentless phase. Depends on previous job.
+      - job: 'CatalogContentVerification'
+        pool: server
+        displayName: 'Catalog Content Verification'
+        timeoutInMinutes: 1500
+        dependsOn:
+          - 'FileValidation'
+          - 'ContentValidation'
+        variables:
+          HostKeySecret: $[ dependencies.FileValidation.outputs['wingetsetup.hostkey']]
+          CatalogContentVerificationEndpointSecret: $[ dependencies.FileValidation.outputs['wingetsetup.catalogContentVerificationEndpoint']]
+        steps:
+
+        # Catalog content verification
+        - task: AzureFunction@1
+          displayName: 'Catalog Content Verification'
+          inputs:
+            function: '$(CatalogContentVerificationEndpointSecret)'
+            key: '$(HostKeySecret)'
+            body: |
+              {
+              "operationId": "$(WinGetSvc.OperationId)",
+              "buildId": "$(Build.BuildId)",
+              "projectId": "$(system.TeamProjectId)",
+              "planId": "$(system.PlanId)",
+              "jobId": "$(system.JobId)",
+              "timelineId": "$(system.TimelineId)",
+              "taskInstanceId": "$(system.TaskInstanceId)",
+              "repository": "$(build.repository.id)",
+              "pipelineType": "ValidationPipeline",
+              "pullRequestNumber": "$(WinGetSvc.PullRequestNumber)",
+              "buildSourceBranch": "$(build.SourceBranch)"
+              }
+            waitForCompletion: "true"
+
+      # Agentless phase. Depends on previous job.
       - job: 'InstallerValidation'
         pool: server
         displayName: 'Installer Validation'
@@ -203,10 +220,12 @@ extends:
         dependsOn:
           - 'FileValidation'
           - 'ContentValidation'
+          - 'CatalogContentVerification' 
         variables:
           HostKeySecret: $[ dependencies.FileValidation.outputs['wingetsetup.hostkey']]
           ScanEndpointSecret: $[ dependencies.FileValidation.outputs['wingetsetup.scanEndpoint']]
           InstallationEndpointSecret: $[ dependencies.FileValidation.outputs['wingetsetup.installationEndpoint']]
+          InstallerMetadataValidationEndpointSecret: $[ dependencies.FileValidation.outputs['wingetsetup.installerMetadataValidationEndpoint']]
         steps:
 
         # Scan installers in manifests.
@@ -253,25 +272,11 @@ extends:
               }
             waitForCompletion: "true"
 
-      # Agentless phase. Depends on previous job.
-      - job: 'CatalogContentVerification'
-        pool: server
-        displayName: 'Catalog Content Verification'
-        timeoutInMinutes: 1500
-        dependsOn:
-          - 'FileValidation'
-          - 'ContentValidation'
-          - 'InstallerValidation'
-        variables:
-          HostKeySecret: $[ dependencies.FileValidation.outputs['wingetsetup.hostkey']]
-          CatalogContentVerificationEndpointSecret: $[ dependencies.FileValidation.outputs['wingetsetup.catalogContentVerificationEndpoint']]
-        steps:
-
-        # Catalog content verification
+        # Validation Installer Metadata such as ARP Correlation.
         - task: AzureFunction@1
-          displayName: 'Catalog Content Verification'
+          displayName: 'Installer Metadata Validation'
           inputs:
-            function: '$(CatalogContentVerificationEndpointSecret)'
+            function: '$(InstallerMetadataValidationEndpointSecret)'
             key: '$(HostKeySecret)'
             body: |
               {
@@ -296,8 +301,8 @@ extends:
         dependsOn:
           - 'FileValidation'
           - 'ContentValidation'
-          - 'InstallerValidation'
           - 'CatalogContentVerification'
+          - 'InstallerValidation'
         condition: succeededOrFailed()
         variables:
           HostKeySecret: $[ dependencies.FileValidation.outputs['wingetsetup.hostkey']]
